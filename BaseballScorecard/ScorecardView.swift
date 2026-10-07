@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct ScorecardView: View {
-    let team: String
     @State private var teamName = ""
+    let team: String
+    
     var body: some View {
         TextField(team, text: $teamName)
     }
