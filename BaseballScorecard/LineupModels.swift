@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct PlayerLine {
+struct PlayerLine: Identifiable {
+    let id = UUID()
     var name = ""
     var ab = 0
     var r = 0
@@ -18,6 +19,7 @@ struct PlayerLine {
 }
 
 
-struct LineupSlot {
+struct LineupSlot: Identifiable {
+    let id = UUID()
     var lines: [PlayerLine] = Array(repeating: PlayerLine(), count: 3)
 }

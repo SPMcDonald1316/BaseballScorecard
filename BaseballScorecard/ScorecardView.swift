@@ -8,11 +8,15 @@
 import SwiftUI
 
 struct ScorecardView: View {
-    @State private var teamName = ""
     let team: String
+    // TODO: make lineupCount dynamic (can add slots for more batters)
+    static let lineupCount = 9
+    @State private var teamName = ""
+    @State private var lineup = Array(repeating: LineupSlot(), count: lineupCount)
     
     var body: some View {
         TextField(team, text: $teamName)
+        LineupColumnView(lineup: $lineup, subRows: 3, slotHeight: 90, headerHeight: 30)
     }
 }
 
