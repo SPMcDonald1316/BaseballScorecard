@@ -14,7 +14,7 @@ struct ScoringGrid: View {
     let headerHeight: CGFloat
     
     var body: some View {
-        Grid(horizontalSpacing: 2, verticalSpacing: 2) {
+        Grid(horizontalSpacing: 0, verticalSpacing: 0) {
             GridRow {
                 ForEach(1...inningCount, id: \.self) { inning in
                     Text("\(inning)")
