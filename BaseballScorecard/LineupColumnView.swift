@@ -10,7 +10,7 @@ import SwiftUI
 struct LineupColumnView: View {
     @Binding var lineup: [LineupSlot]
     let subRows: Int
-    let slotHeight: CGFloat
+    let rowHeight: CGFloat
     let headerHeight: CGFloat
     
     var body: some View {
@@ -24,7 +24,7 @@ struct LineupColumnView: View {
                 VStack(spacing: 0) {
                     ForEach($slot.lines) { $line in
                         TextField("", text: $line.name)
-                            .frame(height: slotHeight / CGFloat(subRows))
+                            .frame(height: rowHeight / CGFloat(subRows))
                             .overlay(Rectangle().stroke(.black, lineWidth: 0.5))
                     }
                 }
