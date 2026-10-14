@@ -10,12 +10,12 @@ import Foundation
 struct PlayerLine: Identifiable {
     let id = UUID()
     var name = ""
-    var ab = 0
-    var r = 0
-    var h = 0
-    var rbi = 0
-    var so = 0
-    var bb = 0
+    var ab: Int? = nil
+    var r: Int? = nil
+    var h: Int? = nil
+    var rbi: Int? = nil
+    var so: Int? = nil
+    var bb: Int? = nil
 }
 
 

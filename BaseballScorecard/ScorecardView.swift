@@ -12,8 +12,9 @@ struct ScorecardView: View {
     // TODO: make lineupCount dynamic (can add slots for more batters)
     // TODO: inningCount moves to GameView (@State, starts at 9, only increases) and is passed down to both team scorecards
     static let lineupCount = 9
-    let rowHeight: CGFloat = 90
-    let headerHeight: CGFloat = 30
+    let rowHeight: CGFloat = 60
+    let headerHeight: CGFloat = 25
+    let lineupColumnWidth: CGFloat = 125
     @State private var teamName = ""
     @State private var lineup = Array(repeating: LineupSlot(), count: lineupCount)
     
@@ -24,7 +25,8 @@ struct ScorecardView: View {
                 lineup: $lineup,
                 subRows: 3,
                 rowHeight: rowHeight,
-                headerHeight: headerHeight
+                headerHeight: headerHeight,
+                lineupColumnWidth: lineupColumnWidth
             )
             ScoringGrid(
                 rowCount: lineup.count,
@@ -32,6 +34,7 @@ struct ScorecardView: View {
                 rowHeight: rowHeight,
                 headerHeight: headerHeight
             )
+            TotalsGridView(rowHeight: rowHeight, headerHeight: headerHeight, lineup: $lineup)
         }
     }
 }
