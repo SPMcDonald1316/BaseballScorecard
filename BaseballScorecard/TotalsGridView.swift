@@ -27,12 +27,12 @@ struct TotalsGridView: View {
                 VStack(spacing: 0) {
                     ForEach($slot.lines) { $line in
                         HStack(spacing: 0) {
-                            TotalsBoxView(rowHeight: rowHeight, stat: $line.ab)
-                            TotalsBoxView(rowHeight: rowHeight, stat: $line.r)
-                            TotalsBoxView(rowHeight: rowHeight, stat: $line.h)
-                            TotalsBoxView(rowHeight: rowHeight, stat: $line.rbi)
-                            TotalsBoxView(rowHeight: rowHeight, stat: $line.bb)
-                            TotalsBoxView(rowHeight: rowHeight, stat: $line.so)
+                            TotalsBoxView(rowHeight: rowHeight, stat: $line.atbats)
+                            TotalsBoxView(rowHeight: rowHeight, stat: $line.runs)
+                            TotalsBoxView(rowHeight: rowHeight, stat: $line.hits)
+                            TotalsBoxView(rowHeight: rowHeight, stat: $line.runsBattedIn)
+                            TotalsBoxView(rowHeight: rowHeight, stat: $line.walks)
+                            TotalsBoxView(rowHeight: rowHeight, stat: $line.strikeouts)
                         }
                     }
                 }
