@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct TotalsBoxView: View {
-    let rowHeight: CGFloat
+    let cellHeight: CGFloat
+    let cellWidth: CGFloat
     @Binding var stat: Int?
     
     var body: some View {
         TextField("", value: $stat, format: .number)
-            .frame(width: rowHeight / 2, height: rowHeight / 3)
+            .frame(width: cellWidth, height: cellHeight)
             .overlay(Rectangle().stroke(.black, lineWidth: 0.5))
             .keyboardType(.numberPad)
     }

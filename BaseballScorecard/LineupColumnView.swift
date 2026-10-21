@@ -12,7 +12,7 @@ struct LineupColumnView: View {
     let subRows: Int
     let rowHeight: CGFloat
     let headerHeight: CGFloat
-    let lineupColumnWidth: CGFloat
+    let nameColumnWidth: CGFloat
     var body: some View {
         VStack(spacing: 0) {
             Text("Player")
@@ -31,6 +31,6 @@ struct LineupColumnView: View {
                 .overlay(Rectangle().stroke(.black, lineWidth: 1.5))
             }
         }
-        .frame(width: lineupColumnWidth)
+        .frame(width: nameColumnWidth)
     }
 }
