@@ -11,7 +11,7 @@ struct GameView: View {
     var body: some View {
         VStack {
             GameInfoView()
-            ScorecardView(team: "Away Team")
+            ScorecardView(team: "Away Team", notes: "Team Notes")
         }
     }
 }

@@ -17,6 +17,10 @@ struct BattingTotalsView: View {
     var body: some View {
         VStack(spacing: 0) {
             HStack(spacing: 0) {
+                Text("Player")
+                    .frame(width: nameColumnWidth, height: headerHeight)
+                    .background(.black)
+                    .foregroundStyle(.white)
                 ForEach(labels, id: \.self) { label in
                     Text(label)
                         .frame(width: cellWidth, height: headerHeight)
@@ -32,6 +36,7 @@ struct BattingTotalsView: View {
                             HStack(spacing: 0) {
                                 Text(line.name)
                                     .frame(width: nameColumnWidth, height: cellHeight)
+                                    .overlay(Rectangle().stroke(.black, lineWidth: 0.5))
                                 TotalsBoxView(
                                     cellHeight: cellHeight,
                                     cellWidth: cellWidth, stat: $line.atbats
@@ -66,7 +71,7 @@ struct BattingTotalsView: View {
 }
 
 #Preview {
-    BattingTotalsView(nameColumnWidth: 135, cellHeight: 90, cellWidth: 90, headerHeight: 30, lineup: .constant(
+    BattingTotalsView(nameColumnWidth: 135, cellHeight: 45, cellWidth: 45, headerHeight: 30, lineup: .constant(
         (0..<9).map { _ in LineupSlot()
          })
     )

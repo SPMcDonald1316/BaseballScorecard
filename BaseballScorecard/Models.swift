@@ -21,7 +21,7 @@ struct PlayerLine: Identifiable {
 
 struct LineupSlot: Identifiable {
     let id = UUID()
-    var lines: [PlayerLine] = Array(repeating: PlayerLine(), count: 3)
+    var lines: [PlayerLine] = (0..<3).map {_ in PlayerLine() }
 }
 
 struct PitcherLine: Identifiable {

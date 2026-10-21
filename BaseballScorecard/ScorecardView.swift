@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ScorecardView: View {
     let team: String
+    let notes: String
     // TODO: make lineupCount dynamic (can add slots for more batters)
     // TODO: inningCount moves to GameView (@State, starts at 9, only increases) and is passed down to both team scorecards
     static let lineupCount = 9
@@ -16,11 +17,22 @@ struct ScorecardView: View {
     let headerHeight: CGFloat = 25
     let nameColumnWidth: CGFloat = 135
     @State private var teamName = ""
-    @State private var lineup = Array(repeating: LineupSlot(), count: lineupCount)
+    @State private var teamNotes = ""
+    @State private var lineup = (0..<lineupCount).map { _ in LineupSlot()}
     
     var body: some View {
         VStack {
-            TextField(team, text: $teamName)
+            HStack(spacing: 5) {
+                TextField(team, text: $teamName)
+                    .frame(width: .infinity, height: 100)
+                    .background(.gray.opacity(0.5))
+                TextField(notes, text: $teamNotes)
+                    .frame(width: .infinity, height: 100)
+                    .background(.gray.opacity(0.5))
+                
+            }
+            .padding(.horizontal)
+            .padding(.top)
             HStack(spacing: 0) {
                 LineupColumnView(
                     lineup: $lineup,
@@ -36,10 +48,19 @@ struct ScorecardView: View {
                     headerHeight: headerHeight
                 )
             }
+            HStack {
+                BattingTotalsView(
+                    nameColumnWidth: nameColumnWidth,
+                    cellHeight: headerHeight,
+                    cellWidth: 45,
+                    headerHeight: 30,
+                    lineup: $lineup
+                )
+            }
         }
     }
 }
 
 #Preview {
-    ScorecardView(team: "Away Team")
+    ScorecardView(team: "Away Team", notes: "Team Notes")
 }
