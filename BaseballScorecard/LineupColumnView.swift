@@ -30,7 +30,19 @@ struct LineupColumnView: View {
                 }
                 .overlay(Rectangle().stroke(.black, lineWidth: 1.5))
             }
+            InnTotalsLabelView(side: rowHeight)
+                .frame(width: nameColumnWidth, height: rowHeight, alignment: .trailing)
         }
         .frame(width: nameColumnWidth)
     }
+}
+
+#Preview {
+    LineupColumnView(
+        lineup: .constant((0..<9).map { _ in LineupSlot() }),
+        subRows: 3,
+        rowHeight: 90,
+        headerHeight: 30,
+        nameColumnWidth: 135
+    )
 }
