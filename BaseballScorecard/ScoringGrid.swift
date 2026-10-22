@@ -31,6 +31,12 @@ struct ScoringGrid: View {
                     }
                 }
             }
+            
+            GridRow {
+                ForEach(1...inningCount, id: \.self) { _ in
+                    InnTotalsView(side: rowHeight)
+                }
+            }
         }
     }
 }
