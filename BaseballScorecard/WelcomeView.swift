@@ -19,17 +19,19 @@ struct WelcomeView: View {
             } label: {
                 Text("New Game")
                     .frame(width: 600, height: 100)
-                    .background(.blue)
+                    .background(.blue, in: Capsule())
+                    .contentShape(Capsule())
                     .foregroundStyle(.white)
                     .font(.largeTitle)
             }
-            
+            .buttonStyle(.plain)
             NavigationLink() {
                 Text("Past Games")
             } label: {
                 Text("Past Games")
                     .frame(width: 600, height: 100)
-                    .background(.blue)
+                    .background(.blue, in: Capsule())
+                    .contentShape(Capsule())
                     .foregroundStyle(.white)
                     .font(.largeTitle)
             }
