@@ -26,7 +26,7 @@ struct WelcomeView: View {
             }
             .buttonStyle(.plain)
             NavigationLink() {
-                Text("Past Games")
+                PastGamesView()
             } label: {
                 Text("Past Games")
                     .frame(width: 600, height: 100)
