@@ -10,8 +10,8 @@ import SwiftUI
 struct ScorecardView: View {
     let team: String
     let notes: String
+    let inningCount: Int
     // TODO: make lineupCount dynamic (can add slots for more batters)
-    // TODO: inningCount moves to GameView (@State, starts at 9, only increases) and is passed down to both team scorecards
     static let lineupCount = 9
     let rowHeight: CGFloat = 75
     let headerHeight: CGFloat = 25
@@ -46,7 +46,7 @@ struct ScorecardView: View {
                     )
                     ScoringGrid(
                         rowCount: lineup.count,
-                        inningCount: 9,
+                        inningCount: inningCount,
                         rowHeight: rowHeight,
                         headerHeight: headerHeight
                     )
@@ -75,5 +75,5 @@ struct ScorecardView: View {
 }
 
 #Preview {
-    ScorecardView(team: "Away Team", notes: "Team Notes")
+    ScorecardView(team: "Away Team", notes: "Team Notes", inningCount: 9)
 }

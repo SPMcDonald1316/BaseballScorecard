@@ -8,10 +8,24 @@
 import SwiftUI
 
 struct GameView: View {
+    @State private var inningCount = 9
+    @State private var gameInfoActive = false
     var body: some View {
-        VStack {
+        
+        TabView {
+            ScorecardView(team: "Home Team", notes: "Team Notes", inningCount: inningCount)
+            ScorecardView(team: "Away Team", notes: "Team Notes", inningCount: inningCount)
+        }
+        .tabViewStyle(.page)
+        .toolbar {
+            ToolbarItem {
+                Button("Game Info") {
+                    gameInfoActive = true
+                }
+            }
+        }
+        .sheet(isPresented: $gameInfoActive) {
             GameInfoView()
-            ScorecardView(team: "Away Team", notes: "Team Notes")
         }
     }
 }
@@ -19,3 +33,4 @@ struct GameView: View {
 #Preview {
     GameView()
 }
+
