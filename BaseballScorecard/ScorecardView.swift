@@ -27,11 +27,11 @@ struct ScorecardView: View {
                 HStack(spacing: 5) {
                     TextField(team, text: $teamName)
                         .frame(maxWidth: .infinity)
-                        .frame(height: 150)
+                        .frame(height: 100)
                         .background(.gray.opacity(0.5))
                     TextField(notes, text: $teamNotes)
                         .frame(maxWidth: .infinity)
-                        .frame(height: 150)
+                        .frame(height: 100)
                         .background(.gray.opacity(0.5))
                     
                 }
