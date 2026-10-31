@@ -22,53 +22,52 @@ struct ScorecardView: View {
     @State private var pitchers = (0..<5).map { _ in PitcherLine() }
     
     var body: some View {
-        ScrollView {
-            VStack {
-                HStack(spacing: 5) {
-                    TextField(team, text: $teamName)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 100)
-                        .background(.gray.opacity(0.5))
-                    TextField(notes, text: $teamNotes)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 100)
-                        .background(.gray.opacity(0.5))
-                    
+        GeometryReader { proxy in
+            // scaling to 11in iPad width
+            let scale = proxy.size.width / 834
+            ScrollView {
+                VStack {
+                    HStack(spacing: 0) {
+                        LineupColumnView(
+                            lineup: $lineup,
+                            subRows: 3,
+                            rowHeight: rowHeight * scale,
+                            headerHeight: headerHeight * scale,
+                            nameColumnWidth: nameColumnWidth * scale
+                        )
+                        ScoringGrid(
+                            rowCount: lineup.count,
+                            inningCount: inningCount,
+                            rowHeight: rowHeight * scale,
+                            headerHeight: headerHeight * scale
+                        )
+                    }
+                    .padding(.top)
+                    HStack(alignment: .top, spacing: 5) {
+                        VStack {
+                            PitchingTotalsView(
+                                nameColumnWidth: nameColumnWidth * scale,
+                                cellHeight: headerHeight * scale,
+                                cellWidth: 45 * scale,
+                                headerHeight: headerHeight * scale,
+                                pitchers: $pitchers
+                            )
+                            
+                            TextField(notes, text: $teamNotes)
+                                .frame(width: 405 * scale, height: 100)
+                                .background(.gray.opacity(0.5))
+                        }
+                        BattingTotalsView(
+                            nameColumnWidth: nameColumnWidth * scale,
+                            cellHeight: headerHeight * scale,
+                            cellWidth: 45 * scale,
+                            headerHeight: headerHeight * scale,
+                            lineup: $lineup
+                        )
+                    }
+                    .padding(.top)
                 }
-                .padding(.horizontal)
-                HStack(spacing: 0) {
-                    LineupColumnView(
-                        lineup: $lineup,
-                        subRows: 3,
-                        rowHeight: rowHeight,
-                        headerHeight: headerHeight,
-                        nameColumnWidth: nameColumnWidth
-                    )
-                    ScoringGrid(
-                        rowCount: lineup.count,
-                        inningCount: inningCount,
-                        rowHeight: rowHeight,
-                        headerHeight: headerHeight
-                    )
-                }
-                .padding(.top)
-                HStack(alignment: .top, spacing: 5) {
-                    PitchingTotalsView(
-                        nameColumnWidth: nameColumnWidth,
-                        cellHeight: headerHeight,
-                        cellWidth: 45,
-                        headerHeight: headerHeight,
-                        pitchers: $pitchers
-                    )
-                    BattingTotalsView(
-                        nameColumnWidth: nameColumnWidth,
-                        cellHeight: headerHeight,
-                        cellWidth: 45,
-                        headerHeight: headerHeight,
-                        lineup: $lineup
-                    )
-                }
-                .padding(.top)
+                .frame(maxWidth: .infinity)
             }
         }
     }
