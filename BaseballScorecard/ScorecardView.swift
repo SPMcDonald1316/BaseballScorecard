@@ -53,8 +53,8 @@ struct ScorecardView: View {
                                 pitchers: $pitchers
                             )
                             
-                            TextField(notes, text: $teamNotes)
-                                .frame(width: 405 * scale, height: 100)
+                            TextField(notes, text: $teamNotes, axis: .vertical)
+                                .frame(maxWidth: 405 * scale, minHeight: 100, alignment: .topLeading)
                                 .background(.gray.opacity(0.5))
                         }
                         BattingTotalsView(

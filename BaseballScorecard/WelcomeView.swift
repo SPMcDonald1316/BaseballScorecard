@@ -35,6 +35,7 @@ struct WelcomeView: View {
                     .foregroundStyle(.white)
                     .font(.largeTitle)
             }
+            .buttonStyle(.plain)
             
             Spacer()
         }
