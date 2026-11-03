@@ -20,6 +20,7 @@ struct ScorecardView: View {
     @State private var teamNotes = ""
     @State private var lineup = (0..<lineupCount).map { _ in LineupSlot()}
     @State private var pitchers = (0..<5).map { _ in PitcherLine() }
+    @FocusState private var notesFocused: Bool
     
     var body: some View {
         GeometryReader { proxy in
@@ -35,13 +36,23 @@ struct ScorecardView: View {
                             headerHeight: headerHeight * scale,
                             nameColumnWidth: nameColumnWidth * scale
                         )
-                        ScoringGrid(
-                            rowCount: lineup.count,
-                            inningCount: inningCount,
-                            rowHeight: rowHeight * scale,
-                            headerHeight: headerHeight * scale
-                        )
+                        ScrollViewReader { reader in
+                            ScrollView(.horizontal) {
+                                ScoringGrid(
+                                    rowCount: lineup.count,
+                                    inningCount: inningCount,
+                                    rowHeight: rowHeight * scale,
+                                    headerHeight: headerHeight * scale
+                                )
+                                .id("grid")
+                            }
+                            .scrollBounceBehavior(.basedOnSize)
+                            .onChange(of: inningCount) {
+                                withAnimation { reader.scrollTo("grid", anchor: .trailing)}
+                            }
+                        }
                     }
+                    .padding(.horizontal, 12 * scale)
                     .padding(.top)
                     HStack(alignment: .top, spacing: 5) {
                         VStack {
@@ -54,8 +65,11 @@ struct ScorecardView: View {
                             )
                             
                             TextField(notes, text: $teamNotes, axis: .vertical)
+                                .focused($notesFocused)
                                 .frame(maxWidth: 405 * scale, minHeight: 100, alignment: .topLeading)
                                 .background(.gray.opacity(0.5))
+                                .contentShape(Rectangle())
+                                .onTapGesture { notesFocused = true }
                         }
                         BattingTotalsView(
                             nameColumnWidth: nameColumnWidth * scale,
