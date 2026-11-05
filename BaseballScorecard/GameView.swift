@@ -8,16 +8,16 @@
 import SwiftUI
 
 struct GameView: View {
-    @State private var inningCount = 9
+    @Bindable var game: Game
     @State private var gameInfoActive = false
     @State private var showingHome = false
     var body: some View {
         ZStack {
             if showingHome {
-                ScorecardView(team: "Home Team", notes: "Team Notes", inningCount: inningCount)
+                ScorecardView(team: "Home Team", notes: "Team Notes", inningCount: game.inningCount)
                     .transition(.move(edge: .trailing))
             } else {
-                ScorecardView(team: "Away Team", notes: "Team Notes", inningCount: inningCount)
+                ScorecardView(team: "Away Team", notes: "Team Notes", inningCount: game.inningCount)
                     .transition(.move(edge: .leading))
             }
         }
@@ -33,7 +33,7 @@ struct GameView: View {
             }
             ToolbarItemGroup(placement: .topBarTrailing) {
                 Menu("Add", systemImage: "plus") {
-                    Button("Add Inning") { inningCount += 1 }
+                    Button("Add Inning") { game.inningCount += 1 }
                     Button("Add Hitter") {}
                     Button("Add Pitcher") {}
                 }
@@ -49,6 +49,6 @@ struct GameView: View {
 }
 
 #Preview {
-    GameView()
+    GameView(game: Game())
 }
 

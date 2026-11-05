@@ -6,16 +6,21 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct WelcomeView: View {
+    @Environment(\.modelContext) private var modelContext
+    @State private var newGame: Game?
     var body: some View {
         VStack {
             Spacer()
             Text("Baseball Scorecard")
                 .font(.system(size: 90))
             Spacer()
-            NavigationLink() {
-                GameView()
+            Button {
+                let game = Game()
+                modelContext.insert(game)
+                newGame = game
             } label: {
                 Text("New Game")
                     .frame(width: 600, height: 100)
@@ -38,6 +43,9 @@ struct WelcomeView: View {
             .buttonStyle(.plain)
             
             Spacer()
+        }
+        .navigationDestination(item: $newGame) { game in
+            GameView(game: game)
         }
     }
 }

@@ -108,6 +108,7 @@ struct Team: Codable {
 @Model
 final class Game {
     var id = UUID()
+    var isCompleted = false
     var home = Team()
     var away = Team()
     var date = Date()

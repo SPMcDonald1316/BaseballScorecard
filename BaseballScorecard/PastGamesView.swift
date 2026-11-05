@@ -11,7 +11,7 @@ struct PastGamesView: View {
     var body: some View {
         List(1...3, id: \.self) { i in
             NavigationLink("Game \(i)") {
-                GameView()
+                GameView(game: Game())
             }
         }
         .navigationTitle("Past Games")
