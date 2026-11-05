@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import SwiftData
 
-struct PlayerLine: Identifiable {
-    let id = UUID()
+struct PlayerLine: Identifiable, Codable {
+    var id = UUID()
     var name = ""
     var atbats: Int?
     var runs: Int?
@@ -19,13 +20,13 @@ struct PlayerLine: Identifiable {
 }
 
 
-struct LineupSlot: Identifiable {
-    let id = UUID()
+struct LineupSlot: Identifiable, Codable {
+    var id = UUID()
     var lines: [PlayerLine] = (0..<3).map {_ in PlayerLine() }
 }
 
-struct PitcherLine: Identifiable {
-    let id = UUID()
+struct PitcherLine: Identifiable, Codable {
+    var id = UUID()
     var name = ""
     var outs: Int?
     var hits: Int?
@@ -92,4 +93,29 @@ struct PitcherLine: Identifiable {
             outs = (inningsPart * 3) + outsPart
         }
     }
+}
+
+
+struct Team: Codable {
+    var id = UUID()
+    var name = ""
+    var notes = ""
+    var lineup: [LineupSlot] = (0..<9).map { _ in LineupSlot() }
+    var pitchers: [PitcherLine] = (0..<5).map { _ in PitcherLine() }
+    var scoringDrawing: Data?
+}
+
+@Model
+final class Game {
+    var id = UUID()
+    var home = Team()
+    var away = Team()
+    var date = Date()
+    var timeOfGame = ""
+    var ballpark = ""
+    var location = ""
+    var gameNotes = ""
+    var inningCount = 9
+    
+    init() {}
 }
