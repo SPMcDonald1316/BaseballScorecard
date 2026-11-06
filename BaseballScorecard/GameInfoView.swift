@@ -9,21 +9,23 @@ import SwiftUI
 
 struct GameInfoView: View {
     @Environment(\.dismiss) var dismiss
-    @State private var date = Date()
-    @State private var timeOfGame = ""
-    @State private var ballpark = ""
-    @State private var location = ""
-    @State private var gameNotes = ""
+    @Bindable var game: Game
     
     var body: some View {
         NavigationStack {
             Form {
-                DatePicker("Date", selection: $date, displayedComponents: .date)
-                DatePicker("First Pitch", selection: $date,  displayedComponents: .hourAndMinute)
-                TextField("Time of Game", text: $timeOfGame)
-                TextField("Ballpark", text: $ballpark)
-                TextField("Location", text: $location)
-                TextField("Game Notes", text: $gameNotes, axis: .vertical)
+                Section("Teams") {
+                    TextField("Away Team", text: $game.away.name)
+                    TextField("Home Team", text: $game.home.name)
+                }
+                Section("Game") {
+                    DatePicker("Date", selection: $game.date, displayedComponents: .date)
+                    DatePicker("First Pitch", selection: $game.date,  displayedComponents: .hourAndMinute)
+                    TextField("Time of Game", text: $game.timeOfGame)
+                    TextField("Ballpark", text: $game.ballpark)
+                    TextField("Location", text: $game.location)
+                    TextField("Game Notes", text: $game.gameNotes, axis: .vertical)
+                }
             }
             .navigationTitle("Game Info")
             .navigationBarTitleDisplayMode(.inline)
@@ -37,5 +39,5 @@ struct GameInfoView: View {
 }
 
 #Preview {
-    GameInfoView()
+    GameInfoView(game: Game())
 }

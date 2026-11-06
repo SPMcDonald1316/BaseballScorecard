@@ -109,6 +109,7 @@ struct Team: Codable {
 final class Game {
     var id = UUID()
     var isCompleted = false
+    var hasBeenStarted = false
     var home = Team()
     var away = Team()
     var date = Date()
@@ -117,6 +118,9 @@ final class Game {
     var location = ""
     var gameNotes = ""
     var inningCount = 9
+    
+    var awayName: String { away.name.isEmpty ? "Away" : away.name }
+    var homeName: String { home.name.isEmpty ? "Home" : home.name }
     
     init() {}
 }

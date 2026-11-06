@@ -14,11 +14,19 @@ struct GameView: View {
     var body: some View {
         ZStack {
             if showingHome {
-                ScorecardView(team: "Home Team", notes: "Team Notes", inningCount: game.inningCount)
-                    .transition(.move(edge: .trailing))
+                ScorecardView(
+                    team: "Home Team",
+                    notes: "Team Notes",
+                    inningCount: game.inningCount
+                )
+                .transition(.move(edge: .trailing))
             } else {
-                ScorecardView(team: "Away Team", notes: "Team Notes", inningCount: game.inningCount)
-                    .transition(.move(edge: .leading))
+                ScorecardView(
+                    team: "Away Team",
+                    notes: "Team Notes",
+                    inningCount: game.inningCount
+                )
+                .transition(.move(edge: .leading))
             }
         }
         .animation(.easeInOut, value: showingHome)
@@ -26,8 +34,8 @@ struct GameView: View {
         .toolbar {
             ToolbarItem(placement: .principal) {
                 Picker("Team", selection: $showingHome) {
-                    Text("Away").tag(false)
-                    Text("Home").tag(true)
+                    Text(game.awayName).tag(false)
+                    Text(game.homeName).tag(true)
                 }
                 .pickerStyle(.menu)
             }
@@ -43,7 +51,13 @@ struct GameView: View {
             }
         }
         .sheet(isPresented: $gameInfoActive) {
-            GameInfoView()
+            GameInfoView(game: game)
+        }
+        .onAppear {
+            if !game.hasBeenStarted {
+                game.hasBeenStarted = true
+                gameInfoActive = true
+            }
         }
     }
 }
