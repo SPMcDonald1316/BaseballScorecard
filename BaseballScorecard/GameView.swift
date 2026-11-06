@@ -15,15 +15,13 @@ struct GameView: View {
         ZStack {
             if showingHome {
                 ScorecardView(
-                    team: "Home Team",
-                    notes: "Team Notes",
+                    team: $game.home,
                     inningCount: game.inningCount
                 )
                 .transition(.move(edge: .trailing))
             } else {
                 ScorecardView(
-                    team: "Away Team",
-                    notes: "Team Notes",
+                    team: $game.away,
                     inningCount: game.inningCount
                 )
                 .transition(.move(edge: .leading))

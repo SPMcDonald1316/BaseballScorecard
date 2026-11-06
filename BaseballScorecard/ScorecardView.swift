@@ -8,18 +8,11 @@
 import SwiftUI
 
 struct ScorecardView: View {
-    let team: String
-    let notes: String
+    @Binding var team: Team
     let inningCount: Int
-    // TODO: make lineupCount dynamic (can add slots for more batters)
-    static let lineupCount = 9
     let rowHeight: CGFloat = 75
     let headerHeight: CGFloat = 25
     let nameColumnWidth: CGFloat = 135
-    @State private var teamName = ""
-    @State private var teamNotes = ""
-    @State private var lineup = (0..<lineupCount).map { _ in LineupSlot()}
-    @State private var pitchers = (0..<5).map { _ in PitcherLine() }
     @FocusState private var notesFocused: Bool
     
     var body: some View {
@@ -30,7 +23,7 @@ struct ScorecardView: View {
                 VStack {
                     HStack(spacing: 0) {
                         LineupColumnView(
-                            lineup: $lineup,
+                            lineup: $team.lineup,
                             subRows: 3,
                             rowHeight: rowHeight * scale,
                             headerHeight: headerHeight * scale,
@@ -39,7 +32,7 @@ struct ScorecardView: View {
                         ScrollViewReader { reader in
                             ScrollView(.horizontal) {
                                 ScoringGrid(
-                                    rowCount: lineup.count,
+                                    rowCount: team.lineup.count,
                                     inningCount: inningCount,
                                     rowHeight: rowHeight * scale,
                                     headerHeight: headerHeight * scale
@@ -61,10 +54,10 @@ struct ScorecardView: View {
                                 cellHeight: headerHeight * scale,
                                 cellWidth: 45 * scale,
                                 headerHeight: headerHeight * scale,
-                                pitchers: $pitchers
+                                pitchers: $team.pitchers
                             )
                             
-                            TextField(notes, text: $teamNotes, axis: .vertical)
+                            TextField("Team Notes", text: $team.notes, axis: .vertical)
                                 .focused($notesFocused)
                                 .frame(maxWidth: 405 * scale, minHeight: 100, alignment: .topLeading)
                                 .background(.gray.opacity(0.5))
@@ -76,7 +69,7 @@ struct ScorecardView: View {
                             cellHeight: headerHeight * scale,
                             cellWidth: 45 * scale,
                             headerHeight: headerHeight * scale,
-                            lineup: $lineup
+                            lineup: $team.lineup
                         )
                     }
                     .padding(.top)
@@ -88,5 +81,5 @@ struct ScorecardView: View {
 }
 
 #Preview {
-    ScorecardView(team: "Away Team", notes: "Team Notes", inningCount: 9)
+    ScorecardView(team: .constant(Team()), inningCount: 9)
 }
