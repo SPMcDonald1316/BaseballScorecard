@@ -9,6 +9,8 @@ import SwiftUI
 
 struct GameView: View {
     @Bindable var game: Game
+    @Environment(\.dismiss) private var dismiss
+    @State private var confirmingEnd = false
     @State private var gameInfoActive = false
     @State private var showingHome = false
     var body: some View {
@@ -46,6 +48,11 @@ struct GameView: View {
                 Button("Game Info") {
                     gameInfoActive = true
                 }
+                if !game.isCompleted {
+                    Button("End Game") {
+                        confirmingEnd = true
+                    }
+                }
             }
         }
         .sheet(isPresented: $gameInfoActive) {
@@ -56,6 +63,17 @@ struct GameView: View {
                 game.hasBeenStarted = true
                 gameInfoActive = true
             }
+        }
+        .confirmationDialog(
+            "End this game?",
+            isPresented: $confirmingEnd,
+            titleVisibility: .visible
+        ) {
+            Button("End Game", role: .destructive) {
+                game.isCompleted = true
+                dismiss()
+            }
+            Button("Cancel", role: .cancel) { }
         }
     }
 }
